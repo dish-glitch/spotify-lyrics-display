@@ -1,4 +1,3 @@
-# spotify-lyrics-display
 
 [![Krishna Pulivendala](https://img.shields.io/badge/Author-Krishna%20Pulivendala-blue)](https://github.com/dish-glitch)
 [![4/4/2026](https://img.shields.io/badge/Built-April%202026-green)]()
