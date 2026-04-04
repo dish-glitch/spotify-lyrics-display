@@ -124,12 +124,11 @@ spotify-lyrics-display/
 
 ----------------------------------------------------------------------
 ## Future Improvemnts
-*
-Add real-time song timer
-Sync lyrics with timestamps
-Upgrade to OLED display
-Add buttons for control
-Wireless version using ESP32
+* Add real-time song timer
+* Sync lyrics with timestamps
+* Upgrade to OLED display
+* Add buttons for control
+* Wireless version using ESP32
 ---------------------------------------------------------------------
 ## License
 
