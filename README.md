@@ -1,7 +1,9 @@
 # spotify-lyrics-display
 This project displays the lyrics of the currently playing Spotify track on a 16x2 LCD connected to an Arduino. Additionally, LEDs indicate the progress of the song in real time:  Green → start of the song Yellow → middle Red → end  The project uses Python to fetch song info and lyrics, and communicates with the Arduino via serial.
 
-## Demo
+## Demo picture 
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/fd5f7e6c-a62a-4fc3-85b1-dc0b7d127114" />
+
 
 
 ## Features
@@ -111,7 +113,14 @@ spotify-lyrics-display/
 * Lyrics timing is approximate (not timestamp-synced)
 
 ----------------------------------------------------------------------
+## future improvemnts
 
+Add real-time song timer
+Sync lyrics with timestamps
+Upgrade to OLED display
+Add buttons for control
+Wireless version using ESP32
+---------------------------------------------------------------------
 ## License
 
 This project is licensed under the MIT License.
