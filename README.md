@@ -128,7 +128,7 @@ spotify-lyrics-display/
 * Lyrics timing is approximate (not timestamp-synced)
 
 ----------------------------------------------------------------------
-## Future Improvemnts
+## Future Improvements
 * Add real-time song timer
 * Sync lyrics with timestamps
 * Upgrade to OLED display
