@@ -4,6 +4,7 @@ This project displays the lyrics of the currently playing Spotify track on a 16x
 ## Demo picture 
 <img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/fd5f7e6c-a62a-4fc3-85b1-dc0b7d127114" />
 
+![WhatsAppVideo2026-04-04at4 17 35PM-ezgif com-optimize](https://github.com/user-attachments/assets/929f20b4-4876-4f1c-ba31-b85b29493e06)
 
 
 ## Features
@@ -24,18 +25,27 @@ This project displays the lyrics of the currently playing Spotify track on a 16x
 - 3 LEDs (Green, Yellow, Red) + Resistors (220 ohm)
 - Python 3.8+
 - Spotify Premium account (for API access)
-
+- 10kΩ Potentiometer (for LCD contrast control)
 -----------------------------------------------------------------------------------------------------
 
 ## Setup Instructions
 
 ### 1. Hardware Wiring
-- LCD: Pins 12, 11, 5, 4, 3, 2
-- Green LED: Pin 6
-- Yellow LED: Pin 7  
-- Red LED: Pin 8
+**LCD Display:**
+- RS: Pin 12
+- E: Pin 11
+- D4: Pin 5
+- D5: Pin 4  
+- D6: Pin 3
+- D7: Pin 2
+- V0 (Contrast): Potentiometer middle pin (outer pins to 5V/GND)
+
+**LEDs:**
+- Green LED: Pin 6 (with 220Ω resistor)
+- Yellow LED: Pin 7 (with 220Ω resistor)
+- Red LED: Pin 8 (with 220Ω resistor)
 ------------------------------------------
-### 2. download the Install Python Dependencies 
+### 2. Download and Install Python Dependencies 
 ```bash
 pip install spotipy lyricsgenius pyserial
 ```
@@ -113,7 +123,7 @@ spotify-lyrics-display/
 * Lyrics timing is approximate (not timestamp-synced)
 
 ----------------------------------------------------------------------
-## future improvemnts
+## Future Improvemnts
 
 Add real-time song timer
 Sync lyrics with timestamps
