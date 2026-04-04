@@ -124,7 +124,7 @@ spotify-lyrics-display/
 
 ----------------------------------------------------------------------
 ## Future Improvemnts
-
+*
 Add real-time song timer
 Sync lyrics with timestamps
 Upgrade to OLED display
