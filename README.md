@@ -1,142 +1,113 @@
 
 [![Krishna Pulivendala](https://img.shields.io/badge/Author-Krishna%20Pulivendala-blue)](https://github.com/dish-glitch)
-[![4/4/2026](https://img.shields.io/badge/Built-April%202026-green)]()
+[![June 2026](https://img.shields.io/badge/Updated-June%202026-green)]()
 
+# spotify-lyrics-display v2
 
-# spotify-lyrics-display
-This project displays the lyrics of the currently playing Spotify track on a 16x2 LCD connected to an Arduino. Additionally, LEDs indicate the progress of the song in real time:  Green → start of the song Yellow → middle Red → end  The project uses Python to fetch song info and lyrics, and communicates with the Arduino via serial. 
+Displays real-time **timestamp-synced lyrics** and song info across multiple hardware displays connected to an Arduino Uno. Python handles all the Spotify API calls and lyric fetching, sending data to the Arduino over serial.
+
 > Built as a hardware + software integration project combining real-time APIs, embedded systems, and serial communication.
 
-## Demo picture 
-<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/fd5f7e6c-a62a-4fc3-85b1-dc0b7d127114" />
+## Demo
 
-![WhatsAppVideo2026-04-04at4 17 35PM-ezgif com-optimize](https://github.com/user-attachments/assets/929f20b4-4876-4f1c-ba31-b85b29493e06)
+*(coming soon)*
 
+## Hardware
+
+| Component | Role |
+|---|---|
+| Arduino Uno | Main controller |
+| 16x2 LCD with I2C backpack | Artist name + song title |
+| SSD1306 128x64 OLED | Synced lyrics — typewriter effect, blinking cursor, music visualizer |
+| WS2812B NeoPixel ring (16 LED) | Song progress arc, green → yellow → red |
+
+## Wiring
+
+```
+LCD  (I2C backpack)  →  SDA=A4, SCL=A5, 5V, GND
+OLED (SSD1306)       →  SDA=A4, SCL=A5, 3.3V, GND
+NeoPixel ring        →  DATA=pin 6, 5V, GND  (connect DI side only)
+```
+
+LCD and OLED share the same I2C bus (different addresses). If the LCD stays blank, change `LCD_ADDR` in the sketch from `0x27` to `0x3F`.
 
 ## Features
--  Real-time Spotify playback synchronization
--  Live lyrics fetching from Genius API  
--  LED progress bar (Green 0-33%, Yellow 34-66%, Red 67-100%)
--  Arduino hardware integration
--  Auto-refreshing display
+
+- Timestamp-synced lyrics via [LRCLIB](https://lrclib.net) (free, no API key)
+- Typewriter effect with blinking cursor on OLED
+- Animated equalizer bars on OLED
+- Song progress bar on OLED
+- NeoPixel ring fills as song progresses with smooth color gradient
+- LCD refreshes every 30s so Arduino resets don't leave it stuck on the startup screen
+- Local time interpolation between Spotify polls for tighter lyric sync
 
 ## Tech Stack
-- **Python**: Spotipy, LyricsGenius, PySerial
-- **Arduino**: C++, LiquidCrystal library
-- **APIs**: Spotify Web API, Genius API
 
-## Requirements
-- Arduino Uno (or compatible)
-- 16x2 LCD Display
-- 3 LEDs (Green, Yellow, Red) + Resistors (220 ohm)
-- Python 3.8+
-- Spotify Premium account (for API access)
-- 10kΩ Potentiometer (for LCD contrast control)
------------------------------------------------------------------------------------------------------
+- **Python**: Spotipy, PySerial, Requests
+- **Arduino**: C++, LiquidCrystal_I2C, Adafruit SSD1306/GFX, Adafruit NeoPixel
+- **APIs**: Spotify Web API, LRCLIB
 
-## Setup Instructions
+## Setup
 
-### 1. Hardware Wiring
-**LCD Display:**
-- RS: Pin 12
-- E: Pin 11
-- D4: Pin 5
-- D5: Pin 4  
-- D6: Pin 3
-- D7: Pin 2
-- V0 (Contrast): Potentiometer middle pin (outer pins to 5V/GND)
+### 1. Arduino Libraries
 
-**LEDs:**
-- Green LED: Pin 6 (with 220Ω resistor)
-- Yellow LED: Pin 7 (with 220Ω resistor)
-- Red LED: Pin 8 (with 220Ω resistor)
-------------------------------------------
-### 2. Download and Install Python Dependencies 
+Install via Arduino IDE → Library Manager:
+- `LiquidCrystal I2C` by Frank de Brabander
+- `Adafruit GFX Library`
+- `Adafruit SSD1306`
+- `Adafruit NeoPixel`
+
+### 2. Python Dependencies
+
 ```bash
-pip install spotipy lyricsgenius pyserial
+pip install spotipy pyserial requests
 ```
-------------------------------------------
-### API Setup
-#### Spotify API(must have premium)
 
-1. Go to https://developer.spotify.com/dashboard
+### 3. Spotify API
+
+1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
 2. Create an app
-3. Copy:
+3. Add redirect URI: `http://127.0.0.1:8888/callback`
+4. Copy your **Client ID** and **Client Secret**
 
-Client ID
-Client Secret
-4. Set Redirect URI:
-```
-http://localhost:8888/callback
-```
+### 4. Configure
 
-#### Genius API
-
-1. Go to https://genius.com/api-clients
-2. Generate an access token
-
-------------------------------------------------------------------------
-### Configure Project
-
-Create a file called `config.py`:
+Edit `spotify_display.py` and fill in your credentials:
 
 ```python
-SPOTIFY_CLIENT_ID = "your_client_id"
-SPOTIFY_CLIENT_SECRET = "your_client_secret"
-SPOTIFY_REDIRECT_URI = "http://localhost:8888/callback"
-
-GENIUS_ACCESS_TOKEN = "your_genius_token"
-SERIAL_PORT = "COM3"  # Change if needed
-BAUD_RATE = 9600
+ARDUINO_PORT  = 'COM3'               # your Arduino port
+CLIENT_ID     = "your_client_id"
+CLIENT_SECRET = "your_client_secret"
 ```
 
-----------------------------------------------------------------------
+### 5. Run
 
-### Run the Project
-
-1. Upload Arduino code
-2. Connect Arduino via USB
-3. Run Python script:
+1. Upload `spotify_display.ino` to the Arduino
+2. Play something on Spotify
+3. Run:
 
 ```bash
-python main.py
+python spotify_display.py
 ```
 
-----------------------------------------------------------------------
+A browser window opens for Spotify login on first run — after that the token is cached automatically.
 
-## Project Structure
+## Serial Protocol
 
-```
-spotify-lyrics-display/
-│
-├── Arduino/
-│   └── lyrics_display.ino
-│
-├── Python/
-│   └── main.py
-│
-├── config.py
-├── README.md
-└── .gitignore
-```
+Python sends newline-terminated messages to the Arduino:
 
----------------------------------------------------------------------
+| Prefix | Example | Purpose |
+|---|---|---|
+| `L:` | `L:Artist\|Title\|Album` | LCD update |
+| `Y:` | `Y:lyric line here` | OLED lyric |
+| `P:` | `P:45` | Progress % → NeoPixel ring |
 
 ## Notes
 
-* Make sure your Spotify app is **actively playing music**
-* Serial port (COM3, etc.) may vary
-* Lyrics timing is approximate (not timestamp-synced)
+- Lyrics depend on LRCLIB coverage — works great for popular/English songs
+- Lyrics timing is interpolated locally between polls so sync stays tight
+- Arduino Uno RAM is tight (~48% used) — adding more displays requires upgrading the board
 
-----------------------------------------------------------------------
-## Future Improvements
-* Add real-time song timer
-* Sync lyrics with timestamps
-* Upgrade to OLED display
-* Add buttons for control
-* Wireless version using ESP32
----------------------------------------------------------------------
 ## License
 
 This project is licensed under the MIT License.
-
