@@ -12,6 +12,21 @@ Displays real-time Spotify lyrics and song info on hardware displays connected t
 
 Upgraded hardware and switched to **timestamp-synced lyrics** via LRCLIB. Python handles all API calls and lyric timing, sending data to the Arduino over serial.
 
+## Pictures! 
+Cinderella - Mac Miller & Ty Dolla $ign
+<img width="1024" height="576" alt="image" src="https://github.com/user-attachments/assets/75599aa5-789a-488b-8200-5a8f58f336a1" />
+<img width="576" height="1024" alt="image" src="https://github.com/user-attachments/assets/716a14c2-bb22-47c6-85e8-5d3e0b3497ad" />
+
+NOBLE - F3miii 
+<img width="576" height="1024" alt="image" src="https://github.com/user-attachments/assets/e7893fdc-c3af-4a79-b577-8e710e50f968" />
+
+
+
+
+(Any song works as long as spotify has the lyrics)
+
+
+
 ### New Hardware
 
 | Component | Role |
