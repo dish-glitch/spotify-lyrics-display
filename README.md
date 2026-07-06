@@ -22,7 +22,7 @@ Cinderella - Mac Miller & Ty Dolla $ign
 NOBLE - F3miii 
 <img width="576" height="1024" alt="image" src="https://github.com/user-attachments/assets/e7893fdc-c3af-4a79-b577-8e710e50f968" />
 
-(Any song works as long as spotify has the lyrics)
+(Any song works as long as LRCLIB can find the lyrics)
 
 
 
