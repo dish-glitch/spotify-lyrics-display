@@ -99,6 +99,12 @@ A browser window opens for Spotify login on first run. After that the token is s
 - `spotify_display.py` — Python script
 
 ---
+## AI Tools Used
+
+- **[Claude (Anthropic)](https://claude.ai/)** — Helped write and organize this
+  README into a presentable format, and helped diagnose an LCD display freeze
+  that was resolved with a firmware fix. Wiring (OLED, LCD, NeoPixel ring),
+  all testing, firmware, and troubleshooting were done by me.
 
 ## Version 1 (Original) — April 2026
 
